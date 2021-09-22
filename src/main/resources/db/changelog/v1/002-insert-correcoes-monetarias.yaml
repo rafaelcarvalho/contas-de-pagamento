@@ -1,0 +1,12 @@
+databaseChangeLog:
+- changeSet:
+    id: 002-insert-correcao-monetaria
+    author: rafaelcarvalho
+    changes:
+    - loadData:
+        tableName: multa
+        file: classpath:db/changelog/v1/multa.csv
+    - loadData:
+        tableName: juros
+        file: classpath:db/changelog/v1/juros.csv
+        

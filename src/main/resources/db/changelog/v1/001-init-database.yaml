@@ -1,0 +1,128 @@
+databaseChangeLog:
+- changeSet:
+    id: 001-init-database
+    author: rafaelcarvalho
+    changes:
+    - createTable:
+        tableName: multa
+        columns:
+        - column:
+            name: id
+            type: uuid
+            constraints:
+              primaryKey: true
+              nullable: false
+        - column:
+            name: dias_em_atraso_inicial
+            type: int
+            constraints:
+              nullable: false
+        - column:
+            name: dias_em_atraso_final
+            type: int
+            constraints:
+              nullable: false
+        - column:
+            name: valor
+            type: decimal
+            constraints:
+              nullable: false
+    - createTable:
+        tableName: juros
+        columns:
+        - column:
+            name: id
+            type: uuid
+            constraints:
+              primaryKey: true
+              nullable: false
+        - column:
+            name: dias_em_atraso_inicial
+            type: int
+            constraints:
+              nullable: false
+        - column:
+            name: dias_em_atraso_final
+            type: int
+            constraints:
+              nullable: false
+        - column:
+            name: valor
+            type: decimal
+            constraints:
+              nullable: false
+    - createTable:
+        tableName: conta_pagamento
+        columns:
+        - column:
+            name: id
+            type: uuid
+            constraints:
+              primaryKey: true
+              nullable: false
+        - column:
+            name: nome
+            type: varchar(400)
+            constraints:
+              nullable: false
+        - column:
+            name: valor_original
+            type: decimal
+            constraints:
+              nullable: false
+        - column:
+            name: valor_corrigido
+            type: decimal
+            constraints:
+              nullable: false
+        - column:
+            name: pagamento
+            type: date
+            constraints:
+              nullable: false
+        - column:
+            name: vencimento
+            type: date
+            constraints:
+              nullable: false
+        - column:
+            name: juros_aplicado
+            type: decimal
+            constraints:
+              nullable: false
+        - column:
+            name: multa_aplicada
+            type: decimal
+            constraints:
+              nullable: false
+        - column:
+            name: dias_em_atraso
+            type: int
+            constraints:
+              nullable: false
+        - column:
+            name: multa_id
+            type: uuid
+            constraints:
+              nullable: true
+        - column:
+            name: juros_id
+            type: uuid
+            constraints:
+              nullable: true
+    - addForeignKeyConstraint:
+        baseColumnNames: multa_id
+        baseTableName: conta_pagamento
+        constraintName: fk_conta_pagamento_multa
+        onDelete: RESTRICT
+        referencedColumnNames: id
+        referencedTableName: multa
+        validate: true
+    - addForeignKeyConstraint:
+        baseColumnNames: juros_id
+        baseTableName: conta_pagamento
+        constraintName: fk_conta_pagamento_juros
+        onDelete: RESTRICT
+        referencedColumnNames: id
+        referencedTableName: juros
+        validate: true

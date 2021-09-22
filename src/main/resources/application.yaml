@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/conta_pagamento
+    username: postgres
+    password: postgres
+  jpa:
+    database: postgresql
+    generate-ddl: false
+
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.yaml
